@@ -1,10 +1,11 @@
 const express = require('express');
 const usuariosServices = require('../services/usuariosServices');
 const router = express.Router();
+const login = require('../middleware/login');
 
 
 ///cadastrar
-router.post('/cadastrar', async (req, res, next) => {
+router.post('/cadastrar', login , async (req, res, next) => {
     const data = req.body;
     try{
     const result = await usuariosServices.cadastroUsuario(data);
@@ -67,6 +68,13 @@ router.delete('/apagar/:id', (req, res, next) => {
         })
     }
 });
+
+//login
+router.post('/login', (req, res, next) => {
+    const data = req.body;
+    const result = usuariosServices.login(data);
+    return result;
+})
 
 
 module.exports = router;
