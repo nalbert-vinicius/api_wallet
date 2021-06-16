@@ -21,26 +21,34 @@ const removerUsuario = async id =>{
 }
 
 const login = async data => {
-   var result = Usuarios.findOne({email : data.email}, (err, sucess) => {
+   var result = await Usuarios.findOne({email : data.email}, (err, sucess) => {
     if(err){
-        return obj = {
-            msg: "E-mail ou senha incorreto",
-            erro: err
+       return obj = {
+           msg: "E-mail ou senha incorreto",
+           erro: err
         };
     }
-    if(sucess.senha == data.senha){
-        let token = jwt.sign({
-            _id: sucess._id,
-            email: sucess.email    
-        }, process.env.JWT_KEY,
-            {expiresIn: "1h"}
-        )
+
+    if(sucess == null){
         return obj = {
-            msg: "Autenticado com sucesso!",
-            token: token
+            msg: "USUÁRIO OU SENHA INCORRETO!"
+        }
+    }else{
+        if(sucess.senha != null && sucess.senha == data.senha){
+            let token = jwt.sign({
+                _id: sucess._id,
+                email: sucess.email    
+            }, process.env.JWT_KEY,
+                {expiresIn: "1h"}
+            )
+            obj = {
+                msg: "Autenticado com sucesso!",
+                token: token
+            }
         }
     }
    });
+   return obj;
 }
 
 module.exports = {

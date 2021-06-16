@@ -70,10 +70,22 @@ router.delete('/apagar/:id', (req, res, next) => {
 });
 
 //login
-router.post('/login', (req, res, next) => {
+router.post('/login', async (req, res, next) => {
     const data = req.body;
-    const result = usuariosServices.login(data);
-    return result;
+    try{
+        const result = await usuariosServices.login(data);
+        res.status(200).send({
+        obj: {
+            resultado: result
+        } 
+        })
+    }catch(err){
+        res.status(400).send({
+            msg: "SENHA OU EMAIL INCORRETO!",
+            erro: err
+        })
+    }
+    
 })
 
 
