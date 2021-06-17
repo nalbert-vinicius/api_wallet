@@ -4,7 +4,6 @@ const router = express.Router();
 const login = require('../middleware/login');
 
 
-///cadastrar
 router.post('/cadastrar', login , async (req, res, next) => {
     const data = req.body;
     try{
@@ -23,7 +22,6 @@ router.post('/cadastrar', login , async (req, res, next) => {
     }
 })
 
-//atualizar
 router.patch('/atualizar/:id', async (req, res, next) => {
     const id = req.params.id;
     const data = req.body;
@@ -84,9 +82,6 @@ router.post('/login', async (req, res, next) => {
             msg: "SENHA OU EMAIL INCORRETO!",
             erro: err
         })
-    }
-    
+    }  
 })
-
-
 module.exports = router;

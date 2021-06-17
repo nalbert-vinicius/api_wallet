@@ -7,7 +7,7 @@ const connectionString = process.env.MONGO_DB;
 
 const conexao = mongoose.connect(connectionString, (error) =>{
     if(!error){
-        console.log("Conectado com sucesso!");
+        console.log("MongoDB Atlas conectado com sucesso!");
     }else{
         console.log("Erro de conexão!", error)
     }
