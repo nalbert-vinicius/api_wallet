@@ -22,8 +22,12 @@ const cadAcoes= new esquema({
         type: Number,
         required: true
     },
+    usuario: {
+        type: mongoose.ObjectId,
+        ref: 'Usuarios',
+        required: true
+    }
 })
 //                            name model   model     collection
-const usuarios = mongoose.model('Usuarios', cadAcoes, 'usuarios')
-
-module.exports = usuarios;
+const acoes = mongoose.model('Acoes', cadAcoes, 'acoes') 
+module.exports = acoes;
