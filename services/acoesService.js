@@ -12,7 +12,12 @@ const adicionaAcao = async data => {
     return await acao.save(data)
 }
 
+const updateAcoes = async (id, data) =>{
+    var result = await Acoes.findByIdAndUpdate(id,data);
+    return result;
+}
 
 module.exports = {
-    adicionaAcao
+    adicionaAcao,
+    updateAcoes
 }

@@ -19,5 +19,38 @@ router.post('/cadastrar', async (req, res, next) => {
    }
 })
 
+router.patch('/atualizar/:id', async (req, res, next) => {
+    const data = req.body;
+    const id = req.params.id
+    try{   
+        const result = await acoesServices.updateAcoes(id,data);
+        return res.status(200).send({
+            msg: "ALTERADO COM SUCESSO!",
+            result: result
+        })
+    }catch(err){
+        res.status(400).send({
+            msg: "Erro ao atualizar!",
+            error: err
+        })
+    }
+})
+
+router.delete('/deletar/:id', async (req, res, next) => {
+    const id = req.params.id;
+    try{
+        const result = await acoesServices.deletarAcoes(id);
+        return res.status(200).send({
+            msg: "Deletado com sucesso!",
+            result: result
+        })
+    }catch(err){
+        res.status(400).send({
+            msg: "Erro ao deletar!",
+            error: err
+        })
+    }
+})
+
 
 module.exports = router;
