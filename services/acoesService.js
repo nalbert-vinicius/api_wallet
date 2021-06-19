@@ -17,7 +17,13 @@ const updateAcoes = async (id, data) =>{
     return result;
 }
 
+const deletarAcoes = async id => {
+    var result = await Acoes.findByIdAndRemove(id)
+    return result;
+}
+
 module.exports = {
     adicionaAcao,
-    updateAcoes
+    updateAcoes,
+    deletarAcoes
 }
