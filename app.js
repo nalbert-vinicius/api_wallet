@@ -5,6 +5,7 @@ const morgan = require('morgan');
 const app = express();
 
 const rotaUsuario = require('./controllers/usuariosController');
+const rotaAcoes = require('./controllers/acoesController');
 
 //logs
 app.use(morgan('dev'));
@@ -14,6 +15,7 @@ app.use(express.urlencoded({extended: false}));
 app.use(express.json())
 
 app.use('/usuarios', rotaUsuario);
+app.use('/acoes', rotaAcoes);
 
 
 module.exports = app;

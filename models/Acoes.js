@@ -10,7 +10,7 @@ const cadAcoes= new esquema({
         type: String,
         required: true
     },
-    dataInio: {
+    dataInicio: {
         type: Date,
         required: true
     },

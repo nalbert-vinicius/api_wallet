@@ -7,7 +7,7 @@ const cadastroUsuario = async (data) => {
         email: data.email,
         senha: data.senha
     });
-        return usuarios.save();     
+        return usuarios.save()    
 }
 
 const atualizaUsuario = async (id,data) => {

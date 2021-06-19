@@ -7,7 +7,7 @@ const login = require('../middleware/login');
 router.post('/cadastrar', login , async (req, res, next) => {
     const data = req.body;
     try{
-    const result = await usuariosServices.cadastroUsuario(data);
+        const result = await usuariosServices.cadastroUsuario(data);
         return res.status(201).send({
             msg: "Usuário criado com sucesso!",
             obj: {
