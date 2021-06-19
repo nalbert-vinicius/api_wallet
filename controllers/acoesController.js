@@ -52,5 +52,18 @@ router.delete('/deletar/:id', async (req, res, next) => {
     }
 })
 
-
+router.get('/', async (req, res, next) =>{
+    try{
+        const result = await acoesServices.getAcoes();
+        return res.status(200).send({
+            msg: "Lista",
+            result: result
+        })
+    }catch(err){
+        res.status(400).send({
+            msg: "Erro ao buscar ações!",
+            error: err
+        })
+    }
+})
 module.exports = router;

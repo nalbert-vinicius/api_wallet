@@ -22,8 +22,14 @@ const deletarAcoes = async id => {
     return result;
 }
 
+const getAcoes = async =>{
+    var result = Acoes.find();
+    return result
+}
+
 module.exports = {
     adicionaAcao,
     updateAcoes,
-    deletarAcoes
+    deletarAcoes,
+    getAcoes
 }
