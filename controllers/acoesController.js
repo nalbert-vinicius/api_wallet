@@ -20,7 +20,7 @@ router.post('/cadastrar', login, async (req, res, next) => {
    }
 })
 
-router.patch('/atualizar/:id', async (req, res, next) => {
+router.patch('/atualizar/:id', login, async (req, res, next) => {
     const data = req.body;
     const id = req.params.id
     try{   
@@ -37,7 +37,7 @@ router.patch('/atualizar/:id', async (req, res, next) => {
     }
 })
 
-router.delete('/deletar/:id', async (req, res, next) => {
+router.delete('/deletar/:id', login, async (req, res, next) => {
     const id = req.params.id;
     try{
         const result = await acoesServices.deletarAcoes(id);
@@ -53,7 +53,7 @@ router.delete('/deletar/:id', async (req, res, next) => {
     }
 })
 
-router.get('/', async (req, res, next) =>{
+router.get('/', login,async (req, res, next) =>{
     try{
         const result = await acoesServices.getAcoes();
         return res.status(200).send({
@@ -68,7 +68,7 @@ router.get('/', async (req, res, next) =>{
     }
 })
 
-router.get('/:id', async (req, res, next) =>{
+router.get('/:id', login,async (req, res, next) =>{
     const id = req.params.id;
     try{
         const result = await acoesServices.getAcoesId(id);

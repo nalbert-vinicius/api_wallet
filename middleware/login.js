@@ -1,3 +1,4 @@
+//middleware todo tipo de funcao que está entre requisição e o response
 const jwt = require('jsonwebtoken');
 module.exports = (req, res, next) => {
     try{

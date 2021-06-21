@@ -4,7 +4,7 @@ const router = express.Router();
 const login = require('../middleware/login');
 
 
-router.post('/cadastrar', login , async (req, res, next) => {
+router.post('/cadastrar', async (req, res, next) => {
     const data = req.body;
     try{
         const result = await usuariosServices.cadastroUsuario(data);
@@ -22,7 +22,7 @@ router.post('/cadastrar', login , async (req, res, next) => {
     }
 })
 
-router.patch('/atualizar/:id', async (req, res, next) => {
+router.patch('/atualizar/:id', login, async (req, res, next) => {
     const id = req.params.id;
     const data = req.body;
     if(data.senha == '' || data.nome == '' || data.senha == ''){
@@ -52,7 +52,7 @@ router.patch('/atualizar/:id', async (req, res, next) => {
 })
 
 //remover
-router.delete('/apagar/:id', (req, res, next) => {
+router.delete('/apagar/:id', login, (req, res, next) => {
     const id = req.params.id;
     try{
         const result = usuariosServices.removerUsuario(id);
