@@ -23,8 +23,7 @@ const cadAcoes= new esquema({
         required: true
     },
     usuario: {
-        type: mongoose.ObjectId,
-        ref: 'Usuarios',
+        type: {},
         required: true
     }
 })

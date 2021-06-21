@@ -27,9 +27,15 @@ const getAcoes = async =>{
     return result
 }
 
+const getAcoesId = async id => {
+    var result = await Acoes.find({"usuario._id" : id})
+    return result;
+}
+
 module.exports = {
     adicionaAcao,
     updateAcoes,
     deletarAcoes,
-    getAcoes
+    getAcoes,
+    getAcoesId
 }

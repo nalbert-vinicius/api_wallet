@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
+const login = require('../middleware/login');
 const acoesServices = require('../services/acoesService');
 
-router.post('/cadastrar', async (req, res, next) => {
+router.post('/cadastrar', login, async (req, res, next) => {
    const data = req.body;
    try{
         const result = await acoesServices.adicionaAcao(data);
@@ -64,6 +65,22 @@ router.get('/', async (req, res, next) =>{
             msg: "Erro ao buscar ações!",
             error: err
         })
+    }
+})
+
+router.get('/:id', async (req, res, next) =>{
+    const id = req.params.id;
+    try{
+        const result = await acoesServices.getAcoesId(id);
+        return res.status(200).send({
+            msg: "Lista",
+            result: result  
+        })
+    }catch(err){
+        res.status(400).send({
+            msg: "Erro ao buscar ações!",
+            error: err
+        })    
     }
 })
 module.exports = router;

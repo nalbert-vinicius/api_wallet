@@ -6,7 +6,11 @@ module.exports = (req, res, next) => {
         //decodifica o token/ a KEY gravada
         const decodifica = jwt.verify(token, process.env.JWT_KEY);
         //atribui os dados do usuário autenticado ao body
-        req.usuario = decodifica;
+        var obj = {
+            _id: decodifica._id,
+            email: decodifica.email
+        }
+        req.body.usuario = obj;
         next();
     }catch(err){
         return res.status(401).send({
