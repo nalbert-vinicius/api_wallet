@@ -14,6 +14,21 @@ app.use(morgan('dev'));
 app.use(express.urlencoded({extended: false}));
 app.use(express.json())
 
+//quando não encontrar nenhuma das rotas entra aqui
+app.use((req, res, next) => {
+    const erro = new Error("Erro rota não encontrada");
+    erro.status = 404;
+    next(erro);
+})
+//retorno do erro
+app.use((error, req, res, next) => {
+    res.status(error.status || 500);
+    return res.send({
+        msg: error.message
+    })
+});
+
+
 app.use('/usuarios', rotaUsuario);
 app.use('/operacoes', rotaOperacoes);
 
