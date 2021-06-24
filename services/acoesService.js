@@ -1,6 +1,18 @@
 const Acoes = require('../models/Acoes');
 
 const adicionaAcao = async data => {
+    if(data.tag == '' || data.tipoOeracao == '' || data.dataInicio == '' || data.quantidade == '' || data.valorUnitario == ''){
+        return error;
+    }
+    var result = await Acoes.findOne({"tag": data.tag}, (error, sucess) => {
+        if(error){
+            return error;
+        }
+
+        if(result.tag == data.tag){
+
+        }
+    })
     const acao = new Acoes({
         tag: data.tag,
         tipoOperacao: data.tipoOperacao,
@@ -13,8 +25,7 @@ const adicionaAcao = async data => {
 }
 
 const updateAcoes = async (id, data) =>{
-    var result = await Acoes.findByIdAndUpdate(id,data);
-    return result;
+    return await Acoes.findByIdAndUpdate(id, data, {new: true}).lean();   
 }
 
 const deletarAcoes = async id => {
