@@ -88,6 +88,7 @@ router.post('/login', async (req, res, next) => {
     const data = req.body;
     try{
         const result = await usuariosServices.login(data);
+        
         res.status(200).send({
             obj: {
                 resultado: result
@@ -95,7 +96,7 @@ router.post('/login', async (req, res, next) => {
         })
     }catch(err){
         res.status(400).send({
-            msg: "ERRO AO EFETUAR LOGIN!",
+            msg: "Falha na autenticação!",
             erro: err
         })
     }  

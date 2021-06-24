@@ -1,19 +1,20 @@
 const Usuarios = require('../models/Usuarios');
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 
 const cadastroUsuario = async (data) => {
     var result = await Usuarios.find({"email": data.email});
-    if(result.length > 0){
+    if(result.length == 0){
+        var hash = await bcrypt.hash(data.senha, 10);
         const usuarios = new Usuarios({
             nome: data.nome,
             email: data.email,
-            senha: data.senha
+            senha: hash
         });
         return usuarios.save()
     }else{
         return error;
-    }
-       
+    }  
 }
 
 const atualizaUsuario = async (id,data) => {
@@ -27,34 +28,27 @@ const removerUsuario = async id =>{
 }
 
 const login = async data => {
-    var result = await Usuarios.findOne({email : data.email}, (err, sucess) => {
-        if(err){
+    var usuario = await Usuarios.find({email : data.email});
+    if(usuario.length > 0){
+        var hash = await bcrypt.compare(data.senha, usuario[0].senha);
+        if(hash){
+            let token = jwt.sign({
+                _id: usuario[0]._id,
+                email: usuario[0].email    
+            }, process.env.JWT_KEY,
+            {expiresIn: "1h"}
+            )
            return obj = {
-               msg: "E-mail ou senha incorreto",
-               erro: err
-            };
-        }
-        if(sucess == null){
-            return obj = {
-                msg: "USUÁRIO OU SENHA INCORRETO!"
+                msg: "Autenticado com sucesso!",
+                token: token,
             }
         }else{
-            if(sucess.senha != null && sucess.senha == data.senha){
-                let token = jwt.sign({
-                    _id: sucess._id,
-                    email: sucess.email    
-                }, process.env.JWT_KEY,
-                    {expiresIn: "1h"}
-                )
-                obj = {
-                    msg: "Autenticado com sucesso!",
-                    token: token
-                }
-            }
+            return error;
         }
-       });
-       return result;
+    }else{
+        return msg = "Falha na autenticação!";
     }
+}
 
 module.exports = {
     cadastroUsuario,
