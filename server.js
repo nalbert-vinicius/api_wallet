@@ -5,7 +5,7 @@ const app = require('./app')
 // IMPORTANDO HTTP PARA CRIAÇÃO DO SERVIDOR
 const http = require('http')
 //SETANDO A PORTA
-const port = 3000;
+const port = process.env.PORT;
 //CRIAÇÃO DO SERVIDOR
 const server = http.createServer(app);
 //RODAR NA PORTA 3000
