@@ -1,8 +1,12 @@
 const express = require('express');
 const morgan = require('morgan'); 
+const cors = require('cors');
 
 // Inicio do projeto
 const app = express();
+//Habilitando CORS 
+// Para criar um objeto de configuração basta acrescentar {origin:['requisicao.com']}
+app.use(cors());
 
 const rotaUsuario = require('./controllers/usuariosController');
 const rotaOperacoes = require('./controllers/operacoesController');
