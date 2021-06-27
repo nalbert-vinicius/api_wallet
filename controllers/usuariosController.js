@@ -11,13 +11,11 @@ router.post('/cadastrar', async (req, res, next) => {
             const result = await usuariosServices.cadastroUsuario(data);
             return res.status(201).send({
                 msg: "Usuário criado com sucesso!",
-                obj: {
-                    result: {
-                        nome: result.nome,
-                        email: result.email
+                result: {
+                    nome: result.nome,
+                    email: result.email
                 }
-            }
-        })
+            })
         }else{
             res.status(400).send({
                 msg: "Dados inválidos!"
