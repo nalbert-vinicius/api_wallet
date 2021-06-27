@@ -46,7 +46,7 @@ const login = async data => {
             return error;
         }
     }else{
-        return msg = "Falha na autenticação!";
+        return msg = "Usuário não existe no banco!";
     }
 }
 
