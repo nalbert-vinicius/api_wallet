@@ -13,7 +13,7 @@ router.post('/cadastrar', login, async (req, res, next) => {
         })
 
    }catch(err){
-       res.status(400).send({
+       res.status(401).send({
            msg: "Erro!",
            error: err
        })
@@ -30,7 +30,7 @@ router.patch('/atualizar/:id', login, async (req, res, next) => {
             result: result
         })
     }catch(err){
-        res.status(400).send({
+        res.status(401).send({
             msg: "Erro ao atualizar!",
             error: err
         })
@@ -46,7 +46,7 @@ router.delete('/deletar/:id', login, async (req, res, next) => {
             result: result
         })
     }catch(err){
-        res.status(400).send({
+        res.status(401).send({
             msg: "Erro ao deletar!",
             error: err
         })
@@ -61,7 +61,7 @@ router.get('/', login,async (req, res, next) =>{
             result: result
         })
     }catch(err){
-        res.status(400).send({
+        res.status(401).send({
             msg: "Erro ao buscar operação!",
             error: err
         })
@@ -77,7 +77,7 @@ router.get('/usuarioid/:id', login,async (req, res, next) =>{
             result: result  
         })
     }catch(err){
-        res.status(400).send({
+        res.status(401).send({
             msg: "Erro ao buscar operação!",
             error: err
         })    

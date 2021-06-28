@@ -2,28 +2,46 @@ const express = require('express');
 const usuariosServices = require('../services/usuariosServices');
 const router = express.Router();
 const login = require('../middleware/login');
+const Usuarios = require('../models/Usuarios');
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 
 
 router.post('/cadastrar', async (req, res, next) => {
     try{
         if(req.body.email && req.body.nome && req.body.senha){
             const data = req.body;
-            const result = await usuariosServices.cadastroUsuario(data);
-            return res.status(201).send({
-                msg: "Usuário criado com sucesso!",
-                result: {
-                    nome: result.nome,
-                    email: result.email
-                }
-            })
+            var result = await Usuarios.find({"email": data.email});
+
+            if(result.length == 0){
+                var hash = await bcrypt.hash(data.senha, 10);
+                const usuarios = new Usuarios({
+                    nome: data.nome,
+                    email: data.email,
+                    senha: hash
+                });
+                usuarios.save();
+                return res.status(201).send({
+                   msg: "Usuario criado com sucesso!",
+                   Ok: true,
+                   Obj: usuario 
+                })
+            }else{
+                return res.status(401).send({
+                    msg: "E-mail já cadastrado!",
+                    Ok: false
+                })
+            }          
         }else{
-            res.status(400).send({
-                msg: "Dados inválidos!"
+            res.status(401).send({
+                msg: "Dados inválidos!",
+                Ok: false
             })
         }
     }catch(err){
-        return res.status(400).send({
-            msg: "E-mail já cadastrado!",
+        return res.status(500).send({
+            msg: "ERRO!",
+            Ok: false,
             erro: err
        })
     }
@@ -32,32 +50,21 @@ router.post('/cadastrar', async (req, res, next) => {
 router.patch('/atualizar/:id', login, async (req, res, next) => {
     const id = req.params.id;
     const data = req.body;
-    if(data.email == '' || data.nome === '' || id == ''){
-        return res.status(400).send({
-            msg: "DADOS INVÁLIDOS",
-            result: {
-                nome: data.nome,
-                email: data.email
-            }
-        })
-    }
     try{
         const result = await usuariosServices.atualizaUsuario(id ,data);
-        if(result !="ERRO!"){
-            return res.status(201).send({
-                msg: "Usuário Atualizado com sucesso!",
-                obj: {
-                    result: {
-                        _id: result._id,
-                        nome: result.nome,
-                        email: result.email
-                    }
-                }
-            })
-        }
+        return res.status(202).send({
+            msg: "Usuário Atualizado com sucesso!",
+            Ok: true,
+            result: {
+                _id: result._id,
+                nome: result.nome,
+                email: result.email
+            }
+        })
     }catch(err){
-        return res.status(400).send({
+        return res.status(500).send({
             msg: "ERRO AO ATUALIZAR DADOS!",
+            Ok: false,
             error: err
        })
     }    
@@ -69,11 +76,13 @@ router.delete('/apagar/:id', login, (req, res, next) => {
     try{
         const result = usuariosServices.removerUsuario(id);
         return res.status(201).send({
-            msg: "DELETADO COM SUCESSO!"
+            msg: "DELETADO COM SUCESSO!",
+            Ok: true
         })
     }catch(err){
-        return res.status(400).send({
-            msg: "ERRO AO EXCLUIR",
+        return res.status(501).send({
+            msg: "ERRO AO EXCLUIR!",
+            Ok: false,
             err: err
         })
     }
@@ -85,16 +94,38 @@ router.delete('/apagar/:id', login, (req, res, next) => {
 router.post('/login', async (req, res, next) => {
     const data = req.body;
     try{
-        const result = await usuariosServices.login(data);
+        var usuario = await Usuarios.find({'email' : data.email});
+        if(usuario.length <1){
+            return res.status(401).send({
+                msg: "Usuário não cadastrado!",
+                Ok: false
+            });
+        }
         
-        res.status(200).send({
-            obj: {
-                resultado: result
-            } 
-        })
-    }catch(err){
-        res.status(400).send({
+
+        if(await bcrypt.compare(data.senha, usuario[0].senha)){
+            let token = jwt.sign({
+                _id: usuario[0]._id,
+                email: usuario[0].email    
+            }, process.env.JWT_KEY,
+            {expiresIn: "1h"}
+            )
+           return res.status(200).send({
+                msg: "Autenticado com sucesso!",
+                Ok: true,
+                token: token,
+           })
+        }
+
+        return res.status(401).send({
             msg: "Falha na autenticação!",
+            Ok: false
+        })
+
+    }catch(err){
+        res.status(500).send({
+            msg: "ERRO",
+            Ok: false,
             erro: err
         })
     }  

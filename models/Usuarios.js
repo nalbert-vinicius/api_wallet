@@ -5,7 +5,7 @@ const esquema = mongoose.Schema;
 const cadUsuarios = new esquema({
     nome: {
         type: String,
-        required: true
+        required: [true,"CAMPO NOME OBRIGATÓRIO!"]
     },
     email: {
         type: String,
