@@ -24,7 +24,7 @@ router.post('/cadastrar', async (req, res, next) => {
                 return res.status(201).send({
                    msg: "Usuario criado com sucesso",
                    Ok: true,
-                   Obj: usuario 
+                   Obj: usuarios 
                 })
             }else{
                 return res.status(401).send({
