@@ -118,7 +118,7 @@ router.post('/login', async (req, res, next) => {
         }
 
         return res.status(401).send({
-            msg: "Falha na autenticação!",
+            msg: "Senha incorreta!",
             Ok: false
         })
 
