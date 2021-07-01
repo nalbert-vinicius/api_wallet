@@ -16,7 +16,7 @@ module.exports = (req, res, next) => {
     }catch(err){
         return res.status(401).send({
             msg: "Falha na autenticação do Token - JWT",
-            erro: err
+            Ok: false
         })
     }
 }

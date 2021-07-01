@@ -130,4 +130,13 @@ router.post('/login', async (req, res, next) => {
         })
     }  
 })
+
+router.post('/validate', login, (req, res, next) => {
+    return res.status(200).send({
+        msg: "Token valido!",
+        Ok: true
+    })
+});
+
+
 module.exports = router;
