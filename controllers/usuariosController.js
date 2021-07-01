@@ -113,6 +113,7 @@ router.post('/login', async (req, res, next) => {
            return res.status(200).send({
                 msg: "Autenticado com sucesso!",
                 Ok: true,
+                Nome: usuario[0].nome,
                 token: token,
            })
         }
@@ -132,6 +133,7 @@ router.post('/login', async (req, res, next) => {
 })
 
 router.post('/validate', login, (req, res, next) => {
+    console.log(req)
     return res.status(200).send({
         msg: "Token valido!",
         Ok: true
