@@ -108,7 +108,7 @@ router.post('/login', async (req, res, next) => {
                 _id: usuario[0]._id,
                 email: usuario[0].email    
             }, process.env.JWT_KEY,
-            {expiresIn: "1h"}
+            {expiresIn: "24h"}
             )
            return res.status(200).send({
                 msg: "Autenticado com sucesso!",

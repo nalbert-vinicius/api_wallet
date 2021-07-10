@@ -68,7 +68,7 @@ router.get('/', login,async (req, res, next) =>{
     }
 })
 
-router.get('/usuarioid/:id', login,async (req, res, next) =>{
+router.get('/operacao/:id', login,async (req, res, next) =>{
     const id = req.params.id;
     try{
         const result = await operacoesServices.getOperacaoId(id);
