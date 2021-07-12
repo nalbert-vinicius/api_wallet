@@ -19,22 +19,22 @@ app.use(express.urlencoded({extended: false}));
 app.use(express.json())
 
 
-app.use((req, res, next) => {
-    //controle de origin da requisição
-    res.header('Access-Control-Allow-Origin', '*');
+// app.use((req, res, next) => {
+//     //controle de origin da requisição
+//     res.header('Access-Control-Allow-Origin', '*');
     
-    //controle do header
-    res.header('Access-Control-Allow-Header',
-    'Origin, X-Requested-With, Content-Type, Accept, Authorization'
-    );
+//     //controle do header
+//     res.header('Access-Control-Allow-Header',
+//     'Origin, X-Requested-With, Content-Type, Accept, Authorization'
+//     );
 
-    //metodos de retorno
-    if(req.method === 'OPTIONS'){
-        res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET');
-        return res.status(200).send({});
-    }
-    next();
-})
+//     //metodos de retorno
+//     if(req.method === 'OPTIONS'){
+//         res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET');
+//         return res.status(200).send({});
+//     }
+//     next();
+// })
 
 
 
