@@ -134,6 +134,7 @@ router.post('/login', async (req, res, next) => {
 
 router.post('/validate', login, async (req, res, next) => {
     var usuario = await Usuarios.find({'email' : req.body.email});
+    console.log(usuario)
     return res.status(200).send(
         {
         msg: "Token valido!",
