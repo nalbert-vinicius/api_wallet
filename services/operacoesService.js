@@ -25,8 +25,8 @@ const deletarOperacao = async id => {
     return result;
 }
 
-const getOperacao = async =>{
-    var result = Operacao.find().sort({_id:-1});
+const getOperacao = async (data) =>{
+    var result = Operacao.find({"usuario.email": data}).sort({_id:-1});
     return result
 }
 

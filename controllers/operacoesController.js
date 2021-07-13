@@ -55,7 +55,8 @@ router.delete('/deletar/:id', login, async (req, res, next) => {
 
 router.get('/', login,async (req, res, next) =>{
     try{
-        const result = await operacoesServices.getOperacao();
+        
+        const result = await operacoesServices.getOperacao(req.body.usuario.email);
         return res.status(200).send({
             msg: "Lista",
             result: result
