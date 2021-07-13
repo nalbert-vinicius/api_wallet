@@ -8,7 +8,7 @@ const adicionaOperacao = async data => {
     const operacao = new Operacao({
         tag: data.tag,
         tipoOperacao: data.tipoOperacao,
-        dataInicio: new Date(),
+        dataInicio: data.dataInicio,
         quantidade: data.quantidade,
         valorUnitario: data.valorUnitario,
         usuario: data.usuario
@@ -26,7 +26,7 @@ const deletarOperacao = async id => {
 }
 
 const getOperacao = async =>{
-    var result = Operacao.find();
+    var result = Operacao.find().sort({_id:-1});
     return result
 }
 
