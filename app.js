@@ -10,6 +10,8 @@ app.use(cors());
 
 const rotaUsuario = require('./controllers/usuariosController');
 const rotaOperacoes = require('./controllers/operacoesController');
+const rotaHistorico = require('./controllers/historicoController');
+const rotaDashboard = require('./controllers/dashboardController');
 
 //logs
 app.use(morgan('dev'));
@@ -40,6 +42,8 @@ app.use((req, res, next) => {
 
 app.use('/usuarios', rotaUsuario);
 app.use('/operacoes', rotaOperacoes);
+app.use('/historico', rotaHistorico);
+app.use('/dashboard', rotaDashboard);
 
 
 //quando não encontrar nenhuma das rotas entra aqui
