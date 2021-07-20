@@ -14,7 +14,7 @@ const cadOperacoes= new esquema({
         type: Date,
         required: [true,"CAMPO DATA OPERAÇÃO OBRIGATÓRIO!"]
     },
-    quantidade: {
+    quantidadeOperacao: {
         type: Number,
         required: [true,"CAMPO QUANTIDADE OBRIGATÓRIO!"]
     },
@@ -22,10 +22,25 @@ const cadOperacoes= new esquema({
         type: Number,
         required: [true,"CAMPO VALOR AÇÃO OBRIGATÓRIO!"]
     },
+    valorTotal: {
+        type: Number,
+    },
+    quantidadeAtual: {
+        type: Number,
+    },
+    valorTotalAtual: {
+        type: Number,
+    },
+    verifica: {
+        type: Boolean,
+    },
+    valorPrimeiraOperacao: {
+        type: Number
+    },
     usuario: {
         type: {},
     }
 })
 //                            name model   model     collection
-const Operacoes = mongoose.model('OperOperacoes', cadOperacoes, 'Operacoes') 
+const Operacoes = mongoose.model('Operacoes', cadOperacoes, 'Operacoes') 
 module.exports = Operacoes;
