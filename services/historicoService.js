@@ -6,7 +6,7 @@ const getHistorico = async (email) =>{
 }
 
 const getHistoricoAcao = async (email, acao) => {
-    var historicoAcao = Operacao.find({"usuario.email": email, "tag": acao});
+    var historicoAcao = Operacao.find({"usuario.email": email, "tag": acao}).sort({_id:-1});
     return historicoAcao;
 }
 
