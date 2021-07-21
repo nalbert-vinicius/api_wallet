@@ -13,7 +13,7 @@ router.get('/', login,async (req, res, next) =>{
         })
     }catch(err){
         res.status(401).send({
-            msg: "Erro ao buscar operação!",
+            msg: "Erro - buscar operação!",
             error: err
         })
     }
