@@ -1,7 +1,7 @@
 const Operacao = require('../models/Operacoes');
 
 const getHistorico = async (email) =>{
-    var historico = Operacao.find({"usuario.email": email});
+    var historico = Operacao.find({"usuario.email": email}).sort({_id:-1});
     return historico
 }
 

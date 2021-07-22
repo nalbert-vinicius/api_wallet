@@ -19,7 +19,7 @@ router.get('/', login,async (req, res, next) =>{
     }
 })
 
-router.get('/acao', login,async (req, res, next) =>{
+router.post('/acao', login,async (req, res, next) =>{
     try{
         
         const result = await historicoServices.getHistoricoAcao(req.body.usuario.email, req.body.tag);

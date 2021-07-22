@@ -11,8 +11,10 @@ const cadOperacoes= new esquema({
         required: [true,"CAMPO OPERAÇÃO OBRIGATÓRIO!"]
     },
     dataInicio: {
-        type: Date,
-        required: [true,"CAMPO DATA OPERAÇÃO OBRIGATÓRIO!"]
+        type: Date
+    },
+    dataAtualizacao: {
+        type: Date
     },
     quantidadeOperacao: {
         type: Number,
