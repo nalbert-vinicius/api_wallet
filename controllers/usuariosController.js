@@ -47,9 +47,10 @@ router.post('/cadastrar', async (req, res, next) => {
     }
 })
 
-router.patch('/atualizar/:id', login, async (req, res, next) => {
-    const id = req.params.id;
+router.patch('/atualizar/', login, async (req, res, next) => {
+    const id = req.body.usuario._id;
     const data = req.body;
+    data.senha = await bcrypt.hash(req.body.senha, 10);
     try{
         const result = await usuariosServices.atualizaUsuario(id ,data);
         return res.status(202).send({
@@ -64,6 +65,22 @@ router.patch('/atualizar/:id', login, async (req, res, next) => {
     }catch(err){
         return res.status(500).send({
             msg: "ERRO AO ATUALIZAR DADOS!",
+            Ok: false,
+            error: err
+       })
+    }    
+})
+
+router.get('/getUser/', login, async (req, res, next) => {
+    const email = req.body.usuario.email;
+    try{
+        const result = await usuariosServices.getUser(email);
+        return res.status(200).send({
+            result 
+        })
+    }catch(err){
+        return res.status(500).send({
+            msg: "ERRO AO BUSCAR USUÁRIO!",
             Ok: false,
             error: err
        })

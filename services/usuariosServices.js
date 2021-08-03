@@ -26,8 +26,14 @@ const login = async data => {
     }
 }
 
+const getUser = async data =>{
+    var resultado = await Usuarios.find({email : data});
+    return resultado;
+}
+
 module.exports = {
     atualizaUsuario,
     removerUsuario,
-    login
+    login, 
+    getUser
 };
